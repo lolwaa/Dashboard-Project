@@ -1,1 +1,18 @@
-<p>orders works!</p>
+<div class="order-list">
+    <div class="order-item" *ngFor="let order of orders; let i = index">
+      <ul>
+        <li><strong>Order ID:</strong> {{ order.id }}</li>
+        <li><strong>Customer Name:</strong> {{ order.customerName }}</li>
+        <li><strong>Email:</strong> {{ order.email }}</li>
+        <li><strong>Date:</strong> {{ order.date }}</li>
+        <li>
+          <strong>Status:</strong>
+          <select ((click))="updateStatus(i, $any($event.target).value)">
+            <option *ngFor="let status of statusOptions" [selected]="order.status === status">{{ status }}</option>
+          </select>
+        </li>
+      </ul>
+      <hr />
+    </div>
+  </div>
+  

@@ -1,1 +1,60 @@
-<p>products works!</p>
+
+
+<table class="product-table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Quantity</th>
+      <th>Price (KWD)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products; let i = index">
+      <td><img [src]="product.imageUrl" alt="{{ product.name }}" /></td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.id }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price |  currency:'KWD':'symbol':'1.0-0'  }}</td>
+      <td>
+        <button (click)="editProduct(i)">✏️</button>
+        <button (click)="deleteProduct(product.id)">🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<button (click)="toggleForm()">
+    {{ showForm ? 'Cancel' : '➕ Add Product' }}
+  </button>
+  
+
+  <div *ngIf="showForm" class="add-form">
+    <input #idInput type="text" placeholder="Product ID" />
+    <input #nameInput type="text" placeholder="Product Name" />
+    <input #qtyInput type="number" placeholder="Quantity" />
+    <input #priceInput type="number" placeholder="Price" />
+    <input #imgInput type="text" placeholder="Image URL" />
+    <button (click)="addProduct(idInput.value, nameInput.value, qtyInput.value, priceInput.value, imgInput.value)">Add</button>
+
+  </div>
+<!-- EDIT FORM -->
+<div *ngIf="editingIndex !== null" class="add-form">
+    <input #editIdInput type="text" placeholder="Product ID" />
+    <input #editNameInput type="text"  placeholder="Product Name" />
+    <input #editQtyInput type="number" placeholder="Quantity" />
+    <input #editPriceInput type="number"  placeholder="Price" />
+    <input #editImgInput type="text" placeholder="Image URL" />
+    <button (click)="saveEdit(
+      editIdInput.value,
+      editNameInput.value,
+      editQtyInput.value,
+      editPriceInput.value,
+      editImgInput.value
+    )">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
+  

@@ -1,0 +1,31 @@
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .product-table img {
+    width: 60px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  button {
+    margin: 0 5px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #eee;
+  }
+  
