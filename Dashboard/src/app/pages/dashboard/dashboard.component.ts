@@ -1,6 +1,6 @@
 import { CommonModule  } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
-import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+
 
 
 @Component({
@@ -56,14 +56,5 @@ export class DashboardComponent {
         break;
     }
   }
-  get pieGradient(): string {
-    const total = this.totalSales + this.orderStatus;
-    const salesPercent = (this.totalSales / this.total) * 100;
-    return `conic-gradient(#42A5F5 0% ${salesPercent}%, #66BB6A ${salesPercent}% 100%)`;
-  }
-
-
- 
-
 
 }
