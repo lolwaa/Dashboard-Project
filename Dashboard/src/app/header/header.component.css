@@ -1,0 +1,41 @@
+.header {
+    height: 60px;
+    background-color: #f3f4f6; /* light gray */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  .search-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-box input {
+    width: 60%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  
+  .admin-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #374151;
+  }
+  .admin-info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
