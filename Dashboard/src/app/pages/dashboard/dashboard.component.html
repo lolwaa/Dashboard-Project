@@ -1,19 +1,75 @@
-<div class="dashboard">
-    <!-- Time Filter -->
-    <div class="filter-bar">
-      <label for="filter">Select Range:</label>
-      <select  (change)="onRangeChange()">
-        <option value="day">Day</option>
-        <option value="week">Week</option>
-        <option value="month">Month</option>
-        <option value="year">Year</option>
-      </select>
-    </div>
+<!-- Order status (donut chart) -->
+
+  <div class="container">
+    <div class="donut-chart-block block">
+      <div class="donut-chart">
   
-    <div class="cards">
-      <div class="card">Total Sales: {{ totalSales | currency:'KWD':'symbol':'1.0-0' }}</div>
-      <div class="card">Best Product: {{ bestProduct }}</div>
-      <div class="card">Orders: {{ orderStatus }}</div>
-      <div class="card">Visits: {{ visits }}</div>
+        <div id="section1" class="clip">
+          <div class="item" data-rel="21"></div>
+        </div>
+        <div id="section2" class="clip">
+          <div class="item" data-rel="39"></div>
+        </div>
+        <div id="section3" class="clip">
+          <div class="item" data-rel="31"></div>
+        </div>
+        <div id="section4" class="clip">
+          <div class="item" data-rel="9"></div>
+        </div>
+        <div class="center">
+          <div class="center-label">
+            <span>Order</span><br><strong>Status</strong>
+          </div>
+        </div>
+  
+      </div>
+  
+      <!-- Legend below the chart -->
+      <ul class="legend">
+        <li><span class="legend-color color1"></span> Pending - 21%</li>
+        <li><span class="legend-color color2"></span> Out For Delivery - 39%</li>
+        <li><span class="legend-color color3"></span> Delivered - 31%</li>
+        <li><span class="legend-color color4"></span> Preparing the order - 9%</li>
+      </ul>
     </div>
   </div>
+
+  <!-- Best selling Product (Bar chart) -->
+
+  <div class="chart-container">
+    <h3 class="chart-title">Best Selling Products</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <span class="label">Foundation</span>
+        <div class="bar"><div class="fill" style="width: 90%; background-color: #4FC4F6;"></div></div>
+        <span class="percentage">90%</span>
+      </div>
+      <div class="bar-row">
+        <span class="label">Concelar</span>
+        <div class="bar"><div class="fill" style="width: 75%; background-color: #FCB150;"></div></div>
+        <span class="percentage">75%</span>
+      </div>
+      <div class="bar-row">
+        <span class="label">Eye-shadow</span>
+        <div class="bar"><div class="fill" style="width: 60%; background-color: #E64C65;"></div></div>
+        <span class="percentage">60%</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Total Sale (Pie chart) -->
+  <div class="chart-container2">
+    <h3 class="chart-title">Total Sales</h3>
+    <div class="pie-chart">
+      <div class="center-hole"></div>
+    </div>
+    <ul class="pie-legend">
+      <li><span class="legend-color online"></span> Online – 40%</li>
+      <li><span class="legend-color instore"></span> In-store – 35%</li>
+      <li><span class="legend-color wholesale"></span> Wholesale – 25%</li>
+    </ul>
+  </div>
+  
+  
+  

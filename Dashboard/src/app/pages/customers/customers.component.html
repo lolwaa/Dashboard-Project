@@ -1,26 +1,69 @@
-<div class="customer-list">
+<div class="customer-panel">
+  <h2>Customer Management</h2>
+
+  <div class="customer-list">
     <div *ngFor="let customer of customers; let i = index" class="customer-item">
       <ul>
         <li><strong>Name:</strong> {{ customer.name }}</li>
         <li><strong>Email:</strong> {{ customer.email }}</li>
         <li><strong>Phone:</strong> {{ customer.phone }}</li>
       </ul>
-
-      <div>
+      
 
       <button (click)="toggleDetails(i)" class="toggle-btn">
         <span *ngIf="!customer.showDetails">▶</span>
         <span *ngIf="customer.showDetails">▼</span> 
         More Details
       </button>
-  
-      <div *ngIf="customer.showDetails" class="scrollable-details">
+      <br>
+
+      <div *ngIf="customer.showDetails" class="details-section">
         <div><strong>Address:</strong> {{ customer.address }}</div>
         <div><strong>Card Details:</strong> {{ customer.cardDetails }}</div>
-        
-        
+        <div><strong>Account Created:</strong> {{ customer.createdAt }}</div>
+        <div><strong>Status:</strong> {{ customer.status }}</div>
+        <div><strong>Total Spent:</strong> {{ convertToKwd(customer.totalSpent) | number:'1.2-2' }} KWD</div>
+        <br>
+
+        <!-- Admin Notes Without ngModel -->
+        <div>
+          <label for="note-{{i}}"><strong>Admin Notes:</strong></label>
+          <br>
+          <textarea #noteArea id="note-{{i}}" rows="2" placeholder="Write a note..."></textarea>
+          <br>
+          <button (click)="saveNote(i, noteArea.value)">Save Note</button>
+          <div *ngIf="customer.notes">
+            <strong>Saved Note:</strong> {{ customer.notes }}
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-buttons">
+          <button (click)="editCustomer(customer)" routerLinkActive="active-link" >Edit</button>
+          <button (click)="deactivateCustomer(customer)" [disabled]="customer.status === 'Inactive'">Deactivate</button>
+          <button (click)="deleteCustomer(customer)">Delete</button>
+          <button (click)="exportCustomer(customer)">Export</button>
+        </div>
       </div>
     </div>
-</div>
+  </div>
+  <!-- EDIT FORM -->
+  <div *ngIf="editingIndex !== null" class="add-form">
+    <input type="hidden" #editIdInput [value]="customers[editingIndex].id" />
+<input #editNameInput type="text"placeholder='Name' [value]="customers[editingIndex].name" />
+<input #editEmailInput type="email" placeholder='Email' [value]="customers[editingIndex].email" />
+<input #editPhoneInput type="tel" placeholder='Phone Number' [value]="customers[editingIndex].phone" />
+<input #editAddressInput type="text" placeholder='Address' [value]="customers[editingIndex].address" />
+
+  
+    <button (click)="saveEdit(
+      +editIdInput.value,
+      editNameInput.value,
+      editEmailInput.value,
+      editPhoneInput.value,
+      editAddressInput.value
+    )">Save</button>
+  
+    <button (click)="cancelEdit()">Cancel</button>
   </div>
   

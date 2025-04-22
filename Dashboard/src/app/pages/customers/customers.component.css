@@ -1,11 +1,23 @@
 /* customer.component.css */
+.customer-panel {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  text-align:left;
+  justify-content: space-between;
+}
 .customer-list {
     list-style-type: none;
-    padding: 0;
+    border: 1px solid black;
+    padding: 10px;
+    
   }
   
   .customer-item {
     margin-bottom: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    
   }
   
   .toggle-btn {
@@ -15,6 +27,8 @@
     cursor: pointer;
     border: none;
     margin-top: 10px;
+    display: block;
+    
   }
   
   .scrollable-details {
@@ -34,4 +48,10 @@
     cursor: pointer;
     border: none;
   }
+
+  .active-link {
+    color: black;
+    font-weight: bold;
+  }
+  
   

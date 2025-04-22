@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeaderComponent } from "./header/header.component";
+import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 
 @Component({
   selector: 'app-root',
