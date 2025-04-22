@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Customer } from './../../customer';
+import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'app-customers',
@@ -12,6 +13,18 @@ import { Customer } from './../../customer';
 export class CustomersComponent {
 String(arg0: number|undefined) {
 throw new Error('Method not implemented.');
+}
+constructor(private searchService: SearchService) {}
+
+ngOnInit() {
+  this.customers = [] ; // Your data
+
+  this.searchService.searchTerm$.subscribe((term: string) => {
+    const lowerTerm = term.toLowerCase();
+    this.customers = this.customers.filter(c =>
+      c.name.toLowerCase().includes(lowerTerm)
+    );
+  });
 }
 
   private usdToKwdRate: number = 0.31;

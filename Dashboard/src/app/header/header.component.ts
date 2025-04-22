@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  constructor(private searchService: SearchService) {}
+
+onSearchChange(value: string) {
+  this.searchService.setSearchTerm(value);
+}
 
 }
+
