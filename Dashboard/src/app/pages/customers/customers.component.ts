@@ -11,24 +11,16 @@ import { SearchService } from '../../search.service';
   styleUrl: './customers.component.css'
 })
 export class CustomersComponent {
+  searchSub: any;
 String(arg0: number|undefined) {
 throw new Error('Method not implemented.');
 }
 constructor(private searchService: SearchService) {}
 
-ngOnInit() {
-  this.customers = [] ; // Your data
 
-  this.searchService.searchTerm$.subscribe((term: string) => {
-    const lowerTerm = term.toLowerCase();
-    this.customers = this.customers.filter(c =>
-      c.name.toLowerCase().includes(lowerTerm)
-    );
-  });
-}
 
   private usdToKwdRate: number = 0.31;
-  editedCustomer: {id:number, name: string, email: string, phone: string, address: string, notes: string } | undefined;
+  editedCustomer: {id:number, name: string, email: string, phone: string, address: string, notes?: string } | undefined;
   editingIndex: number | null = null;
 
   customers : Customer[] = [
@@ -59,6 +51,9 @@ ngOnInit() {
       showDetails: false,
     }
   ]
+  originalCustomers = this.customers;
+  filteredItems: string[] | undefined;
+
   
   
   convertToKwd(usdAmount: number): number {
@@ -74,33 +69,43 @@ ngOnInit() {
     alert(`Note saved for ${this.customers[index].name}`);
   }
 
-  editCustomer(index: any) {
-    const customer = this.customers[index];
-    this.editingIndex = index;
-    this.editedCustomer = { ...customer };
-    alert(`Editing ${customer.name}`);
-  }
-  saveEdit(id: number, name: string, email: string, phone: string, address: string) {
-    if (this.editingIndex !== null) {
-      const original = this.customers[this.editingIndex];
+  editCustomer(customer: any) {
+    this.editedCustomer = {
+      id: customer.id,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      address: customer.address,
+      notes: customer.note
+    };
   
-      this.customers[this.editingIndex] = {
-        id,
+    this.editingIndex = this.customers.findIndex(c => c.id === customer.id);
+    
+  }
+  
+  
+  saveEdit(id: string, name: string, email: string, phone: string, address: string, notes: string) {
+    if (this.editingIndex !== null && this.editedCustomer) {
+      const original = this.customers[this.editingIndex];
+      const updatedCustomer = {
+        ...this.customers[this.editingIndex],
+        id: +id,
         name,
         email,
         phone,
         address,
-        cardDetails: original.cardDetails,     // preserved
-        createdAt: original.createdAt,         // preserved
-        status: original.status,               // preserved
-        totalSpent: original.totalSpent,       // preserved
-        notes: original.notes,                 // preserved
-        showDetails: original.showDetails      // preserved
+        notes
       };
   
+      this.customers[this.editingIndex] =  updatedCustomer;
+  
       this.editingIndex = null;
+      alert(`Edited ${updatedCustomer.name}`);
+      
     }
   }
+  
+  
   
   cancelEdit() {
     this.editingIndex = null;
@@ -148,6 +153,25 @@ ngOnInit() {
     const values = Object.values(obj);
     return `${keys.join(',')}\n${values.join(',')}`;
   }
+
+
+
+
+ngOnInit() {
+  this.originalCustomers = [...this.customers]; // store the full list
+
+this.searchSub = this.searchService.searchTerm$.subscribe(term => {
+  const search = term.toLowerCase();
+
+  this.customers = this.originalCustomers.filter(customer =>
+    customer.name.toLowerCase().includes(search)
+  );
+});
+
+}
+ngOnDestroy() {
+  this.searchSub.unsubscribe();
+}
 
 
 }

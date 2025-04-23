@@ -1,5 +1,7 @@
 import { CommonModule  } from '@angular/common';
 import { Component, Input, NgModule } from '@angular/core';
+import { SearchService } from '../../search.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -14,12 +16,17 @@ import { Component, Input, NgModule } from '@angular/core';
 export class DashboardComponent {
   @Input() values: number[] = [];
   selectedRange = 'month';
+ 
 
   totalSales = 25000;
   bestProduct = '';
   orderStatus = 'Pending';
   visits = 0;
   total: number= 0;
+
+  
+
+}
 
   // ngOnInit() {
   //   this.loadDashboardData();
@@ -58,4 +65,4 @@ export class DashboardComponent {
   //       break;
   //   }
 
-}
+

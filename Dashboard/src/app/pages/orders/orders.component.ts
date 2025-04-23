@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'app-orders',
@@ -10,6 +12,12 @@ import { Component } from '@angular/core';
 })
 export class OrdersComponent {
   statusOptions = ['Delivered', 'Pending', 'Out for Delivery', 'Preparing the Order'];
+   private searchSub!: Subscription;
+filteredItems: any;
+  
+    
+  
+    constructor(public searchService: SearchService) {}
 
   orders = [
     {
@@ -28,9 +36,24 @@ export class OrdersComponent {
     }
     
   ];
+  originalProducts = this.orders
 
   updateStatus(index: number, newStatus: string) {
     this.orders[index].status = newStatus;
+  }
+  ngOnInit() {
+    this.originalProducts = [...this.orders]; // store the full list
+
+  this.searchSub = this.searchService.searchTerm$.subscribe(term => {
+    const search = term.toLowerCase();
+
+    this.orders = this.originalProducts.filter(order =>
+      order.id.toLowerCase().includes(search)
+    );
+  });
+}
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 }
 

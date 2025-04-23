@@ -1,5 +1,7 @@
 import { CommonModule, NgIfContext } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'app-products',
@@ -34,6 +36,13 @@ export class ProductsComponent {
   ];
   showForm = false;
   editingIndex: number | null = null;
+  searchTerm: string = '';
+  filteredItems: any[] | undefined;
+  originalProducts = [...this.products];
+  private searchSub!: Subscription;
+  
+
+  constructor(public searchService: SearchService) {}
 
   newProduct = {
     id: '',
@@ -58,6 +67,7 @@ export class ProductsComponent {
         price: +price,
         imageUrl: imageUrl || 'https://via.placeholder.com/80?text=Product'
       });
+      this.originalProducts = [...this.products];
       this.toggleForm(); // hide form
     }
   }
@@ -66,12 +76,14 @@ export class ProductsComponent {
 
   deleteProduct(productId: string) {
     this.products = this.products.filter(p => p.id !== productId);
+    this.originalProducts = [...this.products];
   }
 
   editProduct(index: number) {
     const product = this.products[index];
     this.editingIndex = index;
     this.editedProduct = { ...product };
+    
   }
   
   saveEdit(id: string, name: string, quantity: string, price: string, imageUrl: string) {
@@ -85,11 +97,34 @@ export class ProductsComponent {
         price: price ? +price : original.price,
         imageUrl: imageUrl || original.imageUrl
       };
+      this.originalProducts = [...this.products];
       this.editingIndex = null;
+     
     }
   }
   
   cancelEdit() {
     this.editingIndex = null;
   }
+  ngOnInit() {
+    this.originalProducts = [...this.products]; // store the full list
+
+  this.searchSub = this.searchService.searchTerm$.subscribe(term => {
+    const search = term.toLowerCase();
+
+    this.products = this.originalProducts.filter(product =>
+      product.name.toLowerCase().includes(search)
+    );
+  });
+}
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
+  }
 }  
+
+  // get filteredProducts() {
+  //   const searchTerm = this.searchService.getSearchTerm().toLowerCase();
+  //   return this.products.filter(product =>
+  //     product.name.toLowerCase().includes(searchTerm)
+  //   );
+  // }

@@ -7,7 +7,7 @@
         <li><strong>Date:</strong> {{ order.date }}</li>
         <li>
           <strong>Status:</strong>
-          <select ((click))="updateStatus(i, $any($event.target).value)">
+          <select (change)="updateStatus(i, $any($event.target).value)">
             <option *ngFor="let status of statusOptions" [selected]="order.status === status">{{ status }}</option>
           </select>
         </li>
@@ -15,4 +15,7 @@
       <hr />
     </div>
   </div>
+  <ul>
+    <li *ngFor="let item of filteredItems">{{ item }}</li>
+  </ul>
   

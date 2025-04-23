@@ -54,16 +54,20 @@
 <input #editEmailInput type="email" placeholder='Email' [value]="customers[editingIndex].email" />
 <input #editPhoneInput type="tel" placeholder='Phone Number' [value]="customers[editingIndex].phone" />
 <input #editAddressInput type="text" placeholder='Address' [value]="customers[editingIndex].address" />
+<input #notesInput type="text" [value]="editedCustomer?.notes "/>
 
   
-    <button (click)="saveEdit(
-      +editIdInput.value,
-      editNameInput.value,
-      editEmailInput.value,
-      editPhoneInput.value,
-      editAddressInput.value
-    )">Save</button>
+    <button (click)="saveEdit(editIdInput.value,
+    editNameInput.value,
+    editEmailInput.value,
+    editPhoneInput.value,
+    editAddressInput.value,
+    notesInput.value)">Save</button>
   
     <button (click)="cancelEdit()">Cancel</button>
   </div>
-  
+
+
+ <ul>
+    <li *ngFor="let item of filteredItems">{{ item }}</li>
+  </ul>

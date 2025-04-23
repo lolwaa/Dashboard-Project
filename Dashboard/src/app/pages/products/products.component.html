@@ -57,4 +57,14 @@
     )">Save</button>
     <button (click)="cancelEdit()">Cancel</button>
   </div>
-  
+
+  <ul>
+    <li *ngFor="let item of filteredItems">{{ item }}</li>
+  </ul>
+<!-- 
+ <div *ngFor="let product of products">
+  <img [src]="product.imageUrl" alt="{{ product.name }}" width="100" />
+  <h3>{{ product.name }}</h3>
+  <p>Price: ${{ product.price }}</p>
+  <p>Quantity: {{ product.quantity }}</p>
+</div> -->
