@@ -77,6 +77,7 @@ export class ProductsComponent {
   deleteProduct(productId: string) {
     this.products = this.products.filter(p => p.id !== productId);
     this.originalProducts = [...this.products];
+    alert(`Product deleted`);
   }
 
   editProduct(index: number) {
@@ -99,7 +100,7 @@ export class ProductsComponent {
       };
       this.originalProducts = [...this.products];
       this.editingIndex = null;
-     
+      alert(`Product edited`);
     }
   }
   

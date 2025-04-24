@@ -13,7 +13,7 @@ export class HeaderComponent {
   constructor(private searchService: SearchService) {}
 
 onSearchChange(event: Event):void  {
-  const input = (event.target as HTMLInputElement)?.value; // Optional chaining
+  const input = (event.target as HTMLInputElement)?.value; 
     if (input !== undefined) {
       this.searchService.setSearchTerm(input);
     }
